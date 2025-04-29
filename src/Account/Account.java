@@ -1,6 +1,8 @@
+package Account;
+
 import java.util.ArrayList;
 
-public class Account {
+public class Account implements Comparable<Account> {
 
     private String accountNumber;
     private String ownerName;
@@ -23,6 +25,21 @@ public class Account {
         this.interestRate = interestRate;
         transactions = new ArrayList<>();
 
+    }
+
+
+
+    // dodelat!!!
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountNumber='" + accountNumber + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                ", balance=" + balance +
+                ", accountType=" + accountType +
+                ", transactions=" + transactions +
+                ", interestRate=" + interestRate +
+                '}';
     }
 
     public String getAccountNumber() {
@@ -71,5 +88,10 @@ public class Account {
 
     public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
+    }
+
+    @Override
+    public int compareTo(Account o) {
+        return this.ownerName.compareTo(o.ownerName);
     }
 }
