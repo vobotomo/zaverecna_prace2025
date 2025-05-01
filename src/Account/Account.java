@@ -3,11 +3,15 @@ package Account;
 import BankingSystem.Transaction;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Account implements Comparable<Account> {
+    private static int idCounter = 0;
 
-    private String accountNumber;
+    private int id;
     private String ownerName;
+    private String ownerSurname;
+    private String username;
     private String email;
     private String phoneNumber;
     private String password;
@@ -18,17 +22,19 @@ public class Account implements Comparable<Account> {
 
 
     // method for aplying interests on differnt types of accounts
-    public void applyInterest(){
+    public void applyInterest() {
 
     }
 
-    public Account(String accountNumber, String ownerName, String email, String phoneNumber, String password, double balance, AccountType accountType,  double interestRate) {
-        this.accountNumber = accountNumber;
-        this.ownerName = ownerName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
+    public Account(String ownerName, String ownerSurname, String username, String email, String phoneNumber, String password, double balance, AccountType accountType, double interestRate) {
+        id = idCounter++;
+        setOwnerName(ownerName);
+        setOwnerSurname(ownerSurname);
+        setEmail(email);
+        setPhoneNumber(phoneNumber);
+        setPassword(password);
         this.balance = balance;
+        this.username = username;
         this.accountType = accountType;
         this.interestRate = interestRate;
         transactions = new ArrayList<>();
@@ -38,8 +44,11 @@ public class Account implements Comparable<Account> {
     @Override
     public String toString() {
         return "Account{" +
-                "accountNumber='" + accountNumber + '\'' +
+                "id=" + id +
                 ", ownerName='" + ownerName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
                 ", balance=" + balance +
                 ", accountType=" + accountType +
                 ", transactions=" + transactions +
@@ -47,44 +56,93 @@ public class Account implements Comparable<Account> {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return id == account.id && Double.compare(balance, account.balance) == 0 && Double.compare(interestRate, account.interestRate) == 0 && Objects.equals(ownerName, account.ownerName) && Objects.equals(ownerSurname, account.ownerSurname) && Objects.equals(email, account.email) && Objects.equals(phoneNumber, account.phoneNumber) && Objects.equals(password, account.password) && accountType == account.accountType && Objects.equals(transactions, account.transactions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, ownerName, ownerSurname, email, phoneNumber, password, balance, accountType, transactions, interestRate);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public boolean setEmail(String email) {
+        if (email.matches("^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$")) {
+            this.email = email;
+            return true;
+        }
+        return false;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public boolean setPhoneNumber(String phoneNumber) {
+        if (phoneNumber.matches("^(\\+420)?\\d{9}$")) {
+            this.phoneNumber = phoneNumber;
+            return true;
+        }
+        return false;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public boolean setPassword(String password) {
+        if (password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
+            this.password = password;
+            return true;
+        }
+        return false;
     }
 
-    public String getAccountNumber() {
-        return accountNumber;
+    public int getId() {
+        return id;
     }
 
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getOwnerSurname() {
+        return ownerSurname;
+    }
+
+    public boolean setOwnerSurname(String ownerSurname) {
+        if (ownerSurname.matches("^[A-Z][a-z]+$")) {
+            this.ownerSurname = ownerSurname;
+            return true;
+        }
+        return false;
     }
 
     public String getOwnerName() {
         return ownerName;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public boolean setOwnerName(String ownerName) {
+        if (ownerName.matches("^[A-Z][a-z]+$")) {
+            this.ownerName = ownerName;
+            return true;
+        }
+        return false;
     }
 
     public double getBalance() {

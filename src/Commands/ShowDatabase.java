@@ -1,8 +1,10 @@
 package Commands;
 
-public class LogOut implements Command {
+public class ShowDatabase implements Command {
+
+
     @Override
-    public void execute() {
+    public String execute() {
 
     }
 

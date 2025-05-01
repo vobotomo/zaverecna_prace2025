@@ -15,11 +15,11 @@ public class Transaction {
     private Account fromAccount;
     private Account toAccount;
 
-    public Transaction(LocalDateTime date, double amount, String description, int id, Account fromAccount, Account toAccount) {
+    public Transaction(LocalDateTime date, double amount, String description, Account fromAccount, Account toAccount) {
         this.date = date;
         this.amount = amount;
         this.description = description;
-        this.id = id;
+        this.id = idCounter++;
         this.fromAccount = fromAccount;
         this.toAccount = toAccount;
     }
