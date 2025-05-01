@@ -1,8 +1,10 @@
 package Account;
 
 public class SavingsAccount extends Account {
-    public SavingsAccount(String accountNumber, String ownerName, double balance, AccountType accountType, double interestRate) {
-        super(accountNumber, ownerName, balance, accountType, interestRate);
+
+
+    public SavingsAccount(String accountNumber, String ownerName, String email, String phoneNumber, String password, double balance, AccountType accountType, double interestRate) {
+        super(accountNumber, ownerName, email, phoneNumber, password, balance, accountType, interestRate);
     }
 
     @Override

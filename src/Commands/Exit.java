@@ -1,6 +1,6 @@
 package Commands;
 
-public class Deposit implements Command {
+public class Exit implements Command {
     @Override
     public void execute() {
 
@@ -8,6 +8,6 @@ public class Deposit implements Command {
 
     @Override
     public boolean exit() {
-        return false;
+        return true;
     }
 }

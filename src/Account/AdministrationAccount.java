@@ -1,15 +1,15 @@
 package Account;
 
 
+import BankingSystem.Database;
+
 public class AdministrationAccount extends Account {
-    public AdministrationAccount(String accountNumber, String ownerName, double balance, AccountType accountType, double interestRate) {
-        super(accountNumber, ownerName, balance, accountType, interestRate);
-    }
+
 
     private Database database;
 
-    public AdministrationAccount(String accountNumber, String ownerName, double balance, AccountType accountType, double interestRate, Database database) {
-        super(accountNumber, ownerName, balance, accountType, interestRate);
+    public AdministrationAccount(String accountNumber, String ownerName, String email, String phoneNumber, String password, double balance, AccountType accountType, double interestRate, Database database) {
+        super(accountNumber, ownerName, email, phoneNumber, password, balance, accountType, interestRate);
         this.database = database;
     }
 

@@ -7,7 +7,7 @@ public class Withdraw implements Command {
     }
 
     @Override
-    public void exit() {
-
+    public boolean exit() {
+        return false;
     }
 }

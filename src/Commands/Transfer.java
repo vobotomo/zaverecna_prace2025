@@ -1,6 +1,6 @@
 package Commands;
 
-public class Deposit implements Command {
+public class Transfer implements Command {
     @Override
     public void execute() {
 

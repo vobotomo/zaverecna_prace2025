@@ -1,6 +1,6 @@
 package Commands;
 
-public class Deposit implements Command {
+public class LogOut implements Command {
     @Override
     public void execute() {
 

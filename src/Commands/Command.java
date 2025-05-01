@@ -3,6 +3,6 @@ package Commands;
 public interface Command {
 
     public void execute();
-    public void exit();
+    public boolean exit();
 
 }

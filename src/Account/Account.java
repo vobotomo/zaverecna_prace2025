@@ -1,11 +1,16 @@
 package Account;
 
+import BankingSystem.Transaction;
+
 import java.util.ArrayList;
 
 public class Account implements Comparable<Account> {
 
     private String accountNumber;
     private String ownerName;
+    private String email;
+    private String phoneNumber;
+    private String password;
     private double balance;
     private AccountType accountType;
     private ArrayList<Transaction> transactions;
@@ -17,17 +22,17 @@ public class Account implements Comparable<Account> {
 
     }
 
-    public Account(String accountNumber, String ownerName, double balance, AccountType accountType, double interestRate) {
+    public Account(String accountNumber, String ownerName, String email, String phoneNumber, String password, double balance, AccountType accountType,  double interestRate) {
         this.accountNumber = accountNumber;
         this.ownerName = ownerName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
         this.balance = balance;
         this.accountType = accountType;
         this.interestRate = interestRate;
         transactions = new ArrayList<>();
-
     }
-
-
 
     // dodelat!!!
     @Override
@@ -40,6 +45,30 @@ public class Account implements Comparable<Account> {
                 ", transactions=" + transactions +
                 ", interestRate=" + interestRate +
                 '}';
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAccountNumber() {
