@@ -2,6 +2,7 @@ package BankingSystem;
 
 import Commands.*;
 
+import java.awt.image.DataBuffer;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -11,10 +12,10 @@ public class Console {
     private boolean exit = false;
     private HashMap<String, Command> commands;
 
-    public void initialization(){
+    public void initialization(LoginManager loginManager, Database database){
         commands = new HashMap<>();
-        commands.put("exit", new Exit());
-        commands.put("logout", new Logout());
+        commands.put("exit", new Exit(database));
+        commands.put("logout", new Logout(loginManager));
         commands.put("transfer", new Transfer());
         commands.put("withdraw", new Withdraw());
         commands.put("deposit", new Deposit());
@@ -38,8 +39,9 @@ public class Console {
 
 
     public void start(){
-        initialization();
-
+        LoginManager loginManager = new LoginManager();
+        Database database = new Database();
+        initialization(loginManager, database);
 
         do{
             executeCommand();

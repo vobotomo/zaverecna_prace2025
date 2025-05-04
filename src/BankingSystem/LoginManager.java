@@ -11,8 +11,7 @@ public class LoginManager {
     private HashMap<String, Account> accounts;
 
 
-    public LoginManager(Account loggedInAccount) {
-        this.loggedInAccount = loggedInAccount;
+    public LoginManager() {
         credentials = new HashMap<>();
         accounts = new HashMap<>();
     }
@@ -25,8 +24,9 @@ public class LoginManager {
         return false;
     }
 
-    public void logout() {
+    public String logout() {
         loggedInAccount = null;
+        return "Logged out successfully";
     }
 
     public void register(String username, String password) {

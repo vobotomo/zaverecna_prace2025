@@ -5,18 +5,16 @@ import BankingSystem.LoginManager;
 
 public class Logout implements Command {
 
-    Account account;
     LoginManager loginManager;
 
 
-    public Logout(Account account, LoginManager loginManager) {
-        this.account = account;
+    public Logout(LoginManager loginManager) {
         this.loginManager = loginManager;
     }
 
     @Override
-    public void execute() {
-        loginManager.logout();
+    public String execute() {
+        return loginManager.logout();
     }
 
     @Override

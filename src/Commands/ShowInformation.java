@@ -2,7 +2,7 @@ package Commands;
 
 public class ShowInformation implements Command {
     @Override
-    public void execute() {
+    public String execute() {
 
     }
 
