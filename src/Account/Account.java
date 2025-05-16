@@ -26,6 +26,19 @@ public class Account implements Comparable<Account> {
 
     }
 
+
+    public Account(String ownerName, String ownerSurname, String username, String email, String phoneNumber, String password, AccountType accountType) {
+        id = idCounter++;
+        setOwnerName(ownerName);
+        setOwnerSurname(ownerSurname);
+        this.username = username;
+        setEmail(email);
+        setPhoneNumber(phoneNumber);
+        setPassword(password);
+        this.accountType = accountType;
+        transactions = new ArrayList<>();
+    }
+
     public Account(String ownerName, String ownerSurname, String username, String email, String phoneNumber, String password, double balance, AccountType accountType, double interestRate) {
         id = idCounter++;
         setOwnerName(ownerName);
