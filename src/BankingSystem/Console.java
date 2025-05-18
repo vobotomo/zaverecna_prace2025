@@ -38,8 +38,8 @@ public class Console {
 
 
     public void start(){
-        LoginManager loginManager = new LoginManager();
         Database database = new Database();
+        LoginManager loginManager = new LoginManager(database);
         initialization(loginManager, database);
 
         do{

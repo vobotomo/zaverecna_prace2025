@@ -13,10 +13,10 @@ public class LoginManager {
     private HashMap<String, Account> accounts;
 
 
-    public LoginManager() {
+    public LoginManager(Database database) {
         credentials = new HashMap<>();
         accounts = new HashMap<>();
-        startLogin();
+        startLogin(database);
     }
 
     public boolean login(String username, String password) {
@@ -32,8 +32,9 @@ public class LoginManager {
         return "Logged out successfully";
     }
 
-    public void register(String name, String surname, String username, String email,String phoneNumber, String password, AccountType accountType) {
+    public void register( Database database, String name, String surname, String username, String email,String phoneNumber, String password, AccountType accountType) {
         Account account = new Account(name, surname, username, email, phoneNumber, password, accountType);
+        database.getAccounts().add(account);
         credentials.put(username, password);
         accounts.put(username, loggedInAccount);
     }
@@ -47,7 +48,7 @@ public class LoginManager {
     }
 
 
-    public String startLogin() {
+    public String startLogin(Database database) {
         System.out.println("Do you want to create a new account(1) or login your existing account?(2)");
         Scanner scanner = new Scanner(System.in);
         try {
@@ -84,7 +85,7 @@ public class LoginManager {
                     String password = scanner.nextLine();
 
 
-                    register(name, surname, username, email, phoneNumber, password, accountTypeEnum);
+                    register(database , name, surname, username, email, phoneNumber, password, accountTypeEnum);
                     return "Registered Successfully";
                 case 2:
 
