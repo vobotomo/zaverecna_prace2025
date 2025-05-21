@@ -15,7 +15,14 @@ public class Database {
         loadAccounts();
     }
 
-
+    public Account accByUsername(String username){
+        for(Account acc : accounts){
+            if(acc.getUsername().equals(username)){
+                return acc;
+            }
+        }
+        return null;
+    }
 
     public boolean loadAccounts(){
         accounts.clear();

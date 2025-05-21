@@ -1,24 +1,23 @@
 package Commands;
 
 import java.util.Scanner;
-import Account.Account;
+import BankingSystem.LoginManager;
 
 public class Withdraw implements Command {
 
-
+    private LoginManager loginManager;
     private Scanner scanner;
-    private Account loggedInAccount;
 
-    public Withdraw(Scanner scanner, Account loggedInAccount) {
+    public Withdraw(Scanner scanner, LoginManager loggedInAccount) {
         this.scanner = scanner;
-        this.loggedInAccount = loggedInAccount;
+        this.loginManager = loginManager;
     }
 
 
 
     @Override
     public String execute() {
-        if (loggedInAccount == null) {
+        if (LoginManager.getLoggedInAccount == null) {
             return "You must be logged in to withdraw money.";
         }
 
@@ -35,7 +34,7 @@ public class Withdraw implements Command {
                 return "Insufficient balance.";
             }
 
-            return loggedInAccount.withdraw(amount);
+            return loginManager.getLoggedInAccount.withdraw(amount);
         } catch (NumberFormatException e) {
             return "Invalid amount format.";
         } catch (Exception e) {

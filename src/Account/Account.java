@@ -1,7 +1,7 @@
 package Account;
 
 import BankingSystem.Transaction;
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -56,6 +56,31 @@ public class Account implements Comparable<Account> {
     public String withdraw(double amount){
         setBalance(getBalance()-amount);
         return "Withdrawal successful. New balance: " + getBalance();
+    }
+
+    public String transfer(LoginManager loginManager, Account recipient, double amount, String description) {
+    if (recipient == null) {
+        return "Transfer failed: recipient account not found.";
+    }
+
+    if (amount <= 0) {
+        return "Transfer failed: amount must be greater than 0.";
+    }
+
+    if (amount > this.balance) {
+        return "Transfer failed: insufficient balance.";
+    }
+
+    // Převod peněz
+    this.balance -= amount;
+    recipient.balance += amount;
+
+    // Přidání transakcí do historie obou účtů
+    Transaction transaction = new Transaction(LocalDateTime.now() ,amount, description,loginManager, recipient);
+    this.transactions.add(transaction);
+    recipient.transactions.add(transaction);
+
+    return "Transfer of " + amount + " to " + recipient.getUsername() + " was successful. New balance: " + this.balance + "Description: " + description;
     }
 
     // dodelat!!!
