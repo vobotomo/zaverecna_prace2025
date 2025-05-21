@@ -8,7 +8,7 @@ public class Withdraw implements Command {
     private LoginManager loginManager;
     private Scanner scanner;
 
-    public Withdraw(Scanner scanner, LoginManager loggedInAccount) {
+    public Withdraw(Scanner scanner, LoginManager loginManager) {
         this.scanner = scanner;
         this.loginManager = loginManager;
     }
@@ -17,7 +17,7 @@ public class Withdraw implements Command {
 
     @Override
     public String execute() {
-        if (LoginManager.getLoggedInAccount == null) {
+        if (loginManager.getLoggedInAccount() == null) {
             return "You must be logged in to withdraw money.";
         }
 
@@ -30,11 +30,11 @@ public class Withdraw implements Command {
                 return "Amount must be positive.";
             }
 
-            if (amount > loggedInAccount.getBalance()) {
+            if (amount > loginManager.getLoggedInAccount().getBalance()) {
                 return "Insufficient balance.";
             }
 
-            return loginManager.getLoggedInAccount.withdraw(amount);
+            return loginManager.getLoggedInAccount().withdraw(amount);
         } catch (NumberFormatException e) {
             return "Invalid amount format.";
         } catch (Exception e) {

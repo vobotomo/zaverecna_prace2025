@@ -15,7 +15,7 @@ public class Console {
         commands = new HashMap<>();
         commands.put("exit", new Exit(database));
         commands.put("logout", new Logout(loginManager));
-        commands.put("transfer", new Transfer());
+        commands.put("transfer", new Transfer(loginManager, database, sc));
         commands.put("withdraw", new Withdraw());
         commands.put("deposit", new Deposit());
         commands.put("interest", new ApplyInterest());
