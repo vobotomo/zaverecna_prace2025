@@ -53,6 +53,11 @@ public class Account implements Comparable<Account> {
         transactions = new ArrayList<>();
     }
 
+    public String withdraw(double amount){
+        setBalance(getBalance()-amount);
+        return "Withdrawal successful. New balance: " + getBalance();
+    }
+
     // dodelat!!!
     @Override
     public String toString() {
