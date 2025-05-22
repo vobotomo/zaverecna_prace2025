@@ -86,17 +86,17 @@ public class Account implements Comparable<Account> {
     // dodelat!!!
     @Override
     public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", ownerName='" + ownerName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", password='" + password + '\'' +
-                ", balance=" + balance +
-                ", accountType=" + accountType +
-                ", transactions=" + transactions +
-                ", interestRate=" + interestRate +
-                '}';
+        return "\n--- Account Information ---" +
+            "\nID: " + id +
+            "\nName: " + ownerName + " " + ownerSurname +
+            "\nUsername: " + username +
+            "\nEmail: " + email +
+            "\nPhone: " + phoneNumber +
+            "\nBalance: " + balance +
+            "\nAccount Type: " + accountType +
+            "\nInterest Rate: " + interestRate +
+            "\nTransactions: " + transactions.size() + " total" +
+            "\n---------------------------";
     }
 
     @Override
