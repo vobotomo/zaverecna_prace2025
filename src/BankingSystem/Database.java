@@ -90,5 +90,34 @@ public class Database {
         return acc;
     }
 
+    public double averageBalance() {
+        if (accounts.isEmpty()){
+            return 0;
+        } 
+        double total = 0;
+        for (Account acc : accounts) {
+            total += acc.getBalance();
+        }
+        return total / accounts.size();
+    }
 
+    public ArrayList<Account> accountsWithZeroBalance() {
+        ArrayList<Account> temp = new ArrayList<>();
+        for (Account acc : accounts) {
+            if (acc.getBalance() == 0) {
+                temp.add(acc);
+            }
+        }
+        return temp;
+    }
+
+    public int countAccountsByType(AccountType type) {
+        int count = 0;
+        for (Account acc : accounts) {
+            if (acc.getAccountType() == type) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
