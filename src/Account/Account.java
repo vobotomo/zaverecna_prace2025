@@ -53,10 +53,29 @@ public class Account implements Comparable<Account> {
         transactions = new ArrayList<>();
     }
 
-    public String withdraw(double amount){
-        setBalance(getBalance()-amount);
-        return "Withdrawal successful. New balance: " + getBalance();
+
+
+
+    public String withdraw(double amount, String description, LoginManager loginManager) {
+    if (amount <= 0) {
+        return "Withdrawal failed: amount must be greater than 0.";
     }
+
+    if (amount > this.balance) {
+        return "Withdrawal failed: insufficient balance.";
+    }
+
+    this.balance -= amount;
+
+    Transaction transaction = new Transaction(LocalDateTime.now(), amount, description, loginManager, null, WITHDRAWAL);
+    this.transactions.add(transaction);
+
+    return "Withdrawal of " + amount + " was successful. New balance: " + this.balance;
+    }
+
+
+
+
 
     public String transfer(LoginManager loginManager, Account recipient, double amount, String description) {
     if (recipient == null) {
@@ -76,7 +95,7 @@ public class Account implements Comparable<Account> {
     recipient.balance += amount;
 
     // Přidání transakcí do historie obou účtů
-    Transaction transaction = new Transaction(LocalDateTime.now() ,amount, description,loginManager, recipient);
+    Transaction transaction = new Transaction(LocalDateTime.now() ,amount, description,loginManager, recipient, TRANSFER);
     this.transactions.add(transaction);
     recipient.transactions.add(transaction);
 

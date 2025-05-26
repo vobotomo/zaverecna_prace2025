@@ -20,4 +20,8 @@ public class AdministrationAccount extends Account {
     public void setDatabase(Database database) {
         this.database = database;
     }
+
+    @Override
+    public void applyInterest(){
+    }
 }

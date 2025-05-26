@@ -14,14 +14,24 @@ public class Transaction {
     private int id;
     private Account fromAccount;
     private Account toAccount;
+    private TransactionType transactionType;
 
-    public Transaction(LocalDateTime date, double amount, String description, Account fromAccount, Account toAccount) {
+    public Transaction(LocalDateTime date, double amount, String description, Account fromAccount, Account toAccount, TransactionType transactionType) {
         this.date = date;
         this.amount = amount;
         this.description = description;
         this.id = idCounter++;
         this.fromAccount = fromAccount;
         this.toAccount = toAccount;
+        this.transactionType = transactionType;
+    }
+
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
+    }
+
+    public TransactionType getTransactionType() {
+        return transactionType;
     }
 
     public static int getIdCounter() {

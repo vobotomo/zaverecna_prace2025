@@ -23,25 +23,24 @@ public class Withdraw implements Command {
 
         try {
             System.out.print("Enter amount to withdraw: ");
-            
             double amount = Double.parseDouble(scanner.nextLine().trim());
 
             if (amount <= 0) {
                 return "Amount must be positive.";
             }
 
-            if (amount > loginManager.getLoggedInAccount().getBalance()) {
-                return "Insufficient balance.";
-            }
+            System.out.print("Enter description for the withdrawal: ");
+            String description = scanner.nextLine().trim();
 
-            return loginManager.getLoggedInAccount().withdraw(amount);
+            return loginManager.getLoggedInAccount().withdraw(amount, description, loginManager);
         } catch (NumberFormatException e) {
             return "Invalid amount format.";
         } catch (Exception e) {
-           return "An unexpected error occurred: " + e.getMessage();
+            return "An unexpected error occurred: " + e.getMessage();
         }
     }
 
+    
     @Override
     public boolean exit() {
         return false;
