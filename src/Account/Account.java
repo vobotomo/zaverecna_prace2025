@@ -83,7 +83,6 @@ public class Account implements Comparable<Account> {
     return "Transfer of " + amount + " to " + recipient.getUsername() + " was successful. New balance: " + this.balance + "Description: " + description;
     }
 
-    // dodelat!!!
     @Override
     public String toString() {
         return "\n--- Account Information ---" +
