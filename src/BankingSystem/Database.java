@@ -8,11 +8,23 @@ import java.util.TreeSet;
 public class Database {
 
     private TreeSet<Account>accounts;
+    private ArrayList<Transaction>transactions;
 
 
     public Database() {
         accounts = new TreeSet<>();
         loadAccounts();
+        addTransactions;
+    }
+
+    public void addTransactions()[
+        for(Account acc : accounts){
+            transaction.add(acc.getTransactions);
+        }
+    ]
+
+    public ArrayList<Transaction> getTransactions() {
+        return transactions;
     }
 
     public Account accByUsername(String username){

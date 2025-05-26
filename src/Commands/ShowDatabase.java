@@ -17,7 +17,7 @@ public class ShowDatabase implements Command {
         this.scanner = scanner;
     }
 
-   @Override
+  @Override
 public String execute() {
     Account admin = loginManager.getLoggedInAccount();
     if (admin == null) {
@@ -28,7 +28,6 @@ public String execute() {
         return "Access denied: Only administrators can view the database.";
     }
 
-    Scanner scanner = new Scanner(System.in);
     StringBuilder output = new StringBuilder();
     boolean running = true;
 
@@ -40,6 +39,7 @@ public String execute() {
         System.out.println("4. Show average balance");
         System.out.println("5. Show accounts with zero balance");
         System.out.println("6. Show count of each account type");
+        System.out.println("7. Show all transactions");
         System.out.println("0. Exit to main menu");
         System.out.print("Choose option: ");
 
@@ -99,6 +99,18 @@ public String execute() {
                     System.out.println(selectedType + ": " + count);
                 } catch (IllegalArgumentException e) {
                     System.out.println("Invalid account type entered.");
+                }
+                break;
+
+            case "7":
+                ArrayList<Transaction> transactions = database.getTransactions();
+                if (transactions.isEmpty()) {
+                    System.out.println("\nNo transactions found.");
+                } else {
+                    System.out.println("\n--- ALL TRANSACTIONS ---");
+                    for (Transaction t : transactions) {
+                        System.out.println(t + "\n");
+                    }
                 }
                 break;
 
