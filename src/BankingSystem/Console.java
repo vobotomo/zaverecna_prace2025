@@ -16,11 +16,11 @@ public class Console {
         commands.put("exit", new Exit(database));
         commands.put("logout", new Logout(loginManager));
         commands.put("transfer", new Transfer(loginManager, database, sc));
-        commands.put("withdraw", new Withdraw());
-        commands.put("deposit", new Deposit());
-        commands.put("interest", new ApplyInterest());
-        commands.put("database", new ShowDatabase());
-        commands.put("info", new ShowInformation());
+        commands.put("withdraw", new Withdraw(sc, loginManager));
+        commands.put("deposit", new Deposit(loginManager, sc));
+        commands.put("interest", new ApplyInterest(loginManager, database));
+        commands.put("database", new ShowDatabase(database, loginManager, sc));
+        commands.put("info", new ShowInformation(loginManager));
     }
 
 
