@@ -16,7 +16,7 @@ public class Deposit implements Command {
 
 
     @Override
-    public void execute() {
+    public String execute() {
         Account account = loginManager.getLoggedInAccount();
         if (account == null) {
             return "You must be logged in to deposit money.";

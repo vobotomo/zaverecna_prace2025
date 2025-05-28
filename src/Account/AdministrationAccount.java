@@ -13,6 +13,11 @@ public class AdministrationAccount extends Account {
         this.database = database;
     }
 
+    public AdministrationAccount(String ownerName, String ownerSurname, String username, String email, String phoneNumber, String password, AccountType accountType, Database database) {
+        super(ownerName, ownerSurname, username, email, phoneNumber, password, accountType);
+        this.database = database;
+    }
+
     public Database getDatabase() {
         return database;
     }

@@ -6,6 +6,9 @@ public class CheckingAccount extends Account {
         setInterestRate(0.001);
     }
 
+    public CheckingAccount(String ownerName, String ownerSurname, String username, String email, String phoneNumber, String password, AccountType accountType) {
+        super(ownerName, ownerSurname, username, email, phoneNumber, password, accountType);
+    }
 
     @Override
     public void applyInterest() {      

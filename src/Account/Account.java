@@ -1,9 +1,14 @@
 package Account;
 
 import BankingSystem.Transaction;
+import BankingSystem.LoginManager;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
+
+import static BankingSystem.TransactionType.TRANSFER;
+import static BankingSystem.TransactionType.WITHDRAWAL;
 
 public class Account implements Comparable<Account> {
     private static int idCounter = 0;
@@ -21,7 +26,7 @@ public class Account implements Comparable<Account> {
     private double interestRate;
 
 
-    // method for aplying interests on differnt types of accounts
+    // method for applying interests on differnt types of accounts
     public void applyInterest() {
 
     }
@@ -54,67 +59,60 @@ public class Account implements Comparable<Account> {
     }
 
 
-
-
     public String withdraw(double amount, String description, LoginManager loginManager) {
-    if (amount <= 0) {
-        return "Withdrawal failed: amount must be greater than 0.";
+        if (amount <= 0) {
+            return "Withdrawal failed: amount must be greater than 0.";
+        }
+
+        if (amount > this.balance) {
+            return "Withdrawal failed: insufficient balance.";
+        }
+
+        this.balance -= amount;
+
+        Transaction transaction = new Transaction(LocalDateTime.now(), amount, description, loginManager.getLoggedInAccount(), null, WITHDRAWAL);
+        this.transactions.add(transaction);
+
+        return "Withdrawal of " + amount + " was successful. New balance: " + this.balance;
     }
-
-    if (amount > this.balance) {
-        return "Withdrawal failed: insufficient balance.";
-    }
-
-    this.balance -= amount;
-
-    Transaction transaction = new Transaction(LocalDateTime.now(), amount, description, loginManager, null, WITHDRAWAL);
-    this.transactions.add(transaction);
-
-    return "Withdrawal of " + amount + " was successful. New balance: " + this.balance;
-    }
-
-
-
 
 
     public String transfer(LoginManager loginManager, Account recipient, double amount, String description) {
-    if (recipient == null) {
-        return "Transfer failed: recipient account not found.";
-    }
+        if (recipient == null) {
+            return "Transfer failed: recipient account not found.";
+        }
 
-    if (amount <= 0) {
-        return "Transfer failed: amount must be greater than 0.";
-    }
+        if (amount <= 0) {
+            return "Transfer failed: amount must be greater than 0.";
+        }
 
-    if (amount > this.balance) {
-        return "Transfer failed: insufficient balance.";
-    }
+        if (amount > this.balance) {
+            return "Transfer failed: insufficient balance.";
+        }
 
-    // Převod peněz
-    this.balance -= amount;
-    recipient.balance += amount;
+        this.balance -= amount;
+        recipient.balance += amount;
 
-    // Přidání transakcí do historie obou účtů
-    Transaction transaction = new Transaction(LocalDateTime.now() ,amount, description,loginManager, recipient, TRANSFER);
-    this.transactions.add(transaction);
-    recipient.transactions.add(transaction);
+        Transaction transaction = new Transaction(LocalDateTime.now(), amount, description, loginManager.getLoggedInAccount(), recipient, TRANSFER);
+        this.transactions.add(transaction);
+        recipient.transactions.add(transaction);
 
-    return "Transfer of " + amount + " to " + recipient.getUsername() + " was successful. New balance: " + this.balance + "Description: " + description;
+        return "Transfer of " + amount + " to " + recipient.getUsername() + " was successful. New balance: " + this.balance + "Description: " + description;
     }
 
     @Override
     public String toString() {
         return "\n--- Account Information ---" +
-            "\nID: " + id +
-            "\nName: " + ownerName + " " + ownerSurname +
-            "\nUsername: " + username +
-            "\nEmail: " + email +
-            "\nPhone: " + phoneNumber +
-            "\nBalance: " + balance +
-            "\nAccount Type: " + accountType +
-            "\nInterest Rate: " + interestRate +
-            "\nTransactions: " + transactions.size() + " total" +
-            "\n---------------------------";
+                "\nID: " + id +
+                "\nName: " + ownerName + " " + ownerSurname +
+                "\nUsername: " + username +
+                "\nEmail: " + email +
+                "\nPhone: " + phoneNumber +
+                "\nBalance: " + balance +
+                "\nAccount Type: " + accountType +
+                "\nInterest Rate: " + interestRate +
+                "\nTransactions: " + transactions.size() + " total" +
+                "\n---------------------------";
     }
 
     @Override
@@ -142,36 +140,33 @@ public class Account implements Comparable<Account> {
         return email;
     }
 
-    public boolean setEmail(String email) {
-        if (email.matches("^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$")) {
-            this.email = email;
-            return true;
+    public void setEmail(String email) {
+        if (email == null || !email.matches("^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$")) {
+            throw new IllegalArgumentException("Invalid email format. Example: test@example.com");
         }
-        return false;
+        this.email = email;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public boolean setPhoneNumber(String phoneNumber) {
-        if (phoneNumber.matches("^(\\+420)?\\d{9}$")) {
-            this.phoneNumber = phoneNumber;
-            return true;
+    public void setPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null || !phoneNumber.matches("^(\\+420)?\\d{9}$")) {
+            throw new IllegalArgumentException("Invalid phone number. Must be 9 digits, optionally prefixed with +420.");
         }
-        return false;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public boolean setPassword(String password) {
-        if (password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
-            this.password = password;
-            return true;
+    public void setPassword(String password) {
+        if (password == null || !password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
+            throw new IllegalArgumentException("Invalid password. Must be at least 8 characters long, contain letters and numbers.");
         }
-        return false;
+        this.password = password;
     }
 
     public int getId() {
@@ -186,24 +181,22 @@ public class Account implements Comparable<Account> {
         return ownerSurname;
     }
 
-    public boolean setOwnerSurname(String ownerSurname) {
-        if (ownerSurname.matches("^[A-Z][a-z]+$")) {
-            this.ownerSurname = ownerSurname;
-            return true;
+    public void setOwnerSurname(String ownerSurname) {
+        if (ownerSurname == null || !ownerSurname.matches("^[A-Z][a-z]+$")) {
+            throw new IllegalArgumentException("Invalid surname format. Must start with a capital letter and contain only lowercase letters.");
         }
-        return false;
+        this.ownerSurname = ownerSurname;
     }
 
     public String getOwnerName() {
         return ownerName;
     }
 
-    public boolean setOwnerName(String ownerName) {
-        if (ownerName.matches("^[A-Z][a-z]+$")) {
-            this.ownerName = ownerName;
-            return true;
+    public void setOwnerName(String ownerName) {
+        if (ownerName == null || !ownerName.matches("^[A-Z][a-z]+$")) {
+            throw new IllegalArgumentException("Invalid owner name format. Must start with capital letter and contain only letters.");
         }
-        return false;
+        this.ownerName = ownerName;
     }
 
     public double getBalance() {

@@ -1,42 +1,45 @@
 package BankingSystem;
 
 import Account.Account;
+import Account.AccountType;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class Database {
 
-    private TreeSet<Account>accounts;
-    private ArrayList<Transaction>transactions;
+    private TreeSet<Account> accounts;
+    private ArrayList<Transaction> transactions;
 
 
     public Database() {
         accounts = new TreeSet<>();
         loadAccounts();
-        addTransactions;
+        addTransactions();
     }
 
-    public void addTransactions()[
-        for(Account acc : accounts){
-            transaction.add(acc.getTransactions);
+    public void addTransactions() {
+        for (Account acc : accounts) {
+            transactions.addAll(acc.getTransactions());
         }
-    ]
+    }
+
 
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
 
-    public Account accByUsername(String username){
-        for(Account acc : accounts){
-            if(acc.getUsername().equals(username)){
+    public Account accByUsername(String username) {
+        for (Account acc : accounts) {
+            if (acc.getUsername().equals(username)) {
                 return acc;
             }
         }
         return null;
     }
 
-    public boolean loadAccounts(){
+    public boolean loadAccounts() {
         accounts.clear();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/res/accounts.dat"))) {
             Object obj = ois.readObject();
@@ -57,7 +60,7 @@ public class Database {
     }
 
 
-    public boolean saveAccounts(){
+    public boolean saveAccounts() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/res/accounts.csv"))) {
             oos.writeObject(accounts);
             return true;
@@ -65,7 +68,6 @@ public class Database {
             return false;
         }
     }
-
 
 
     public boolean removeAccount(Account account) {
@@ -82,20 +84,20 @@ public class Database {
         return accounts;
     }
 
-    public Account richestAcc(){
+    public Account richestAcc() {
         Account acc = accounts.first();
-        for(Account a : accounts){
-            if(a.getBalance()>acc.getBalance()){
+        for (Account a : accounts) {
+            if (a.getBalance() > acc.getBalance()) {
                 acc = a;
             }
         }
         return acc;
     }
 
-    public Account poorestAcc(){
+    public Account poorestAcc() {
         Account acc = accounts.first();
-        for(Account a : accounts){
-            if(a.getBalance()<acc.getBalance()){
+        for (Account a : accounts) {
+            if (a.getBalance() < acc.getBalance()) {
                 acc = a;
             }
         }
@@ -103,9 +105,9 @@ public class Database {
     }
 
     public double averageBalance() {
-        if (accounts.isEmpty()){
+        if (accounts.isEmpty()) {
             return 0;
-        } 
+        }
         double total = 0;
         for (Account acc : accounts) {
             total += acc.getBalance();
