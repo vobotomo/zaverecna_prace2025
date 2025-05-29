@@ -41,7 +41,7 @@ public class Database {
 
     public boolean loadAccounts() {
         accounts.clear();
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/res/accounts.dat"))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/res/accounts.csv"))) {
             Object obj = ois.readObject();
             if (obj instanceof TreeSet<?>) {
                 TreeSet<?> loaded = (TreeSet<?>) obj;
@@ -50,6 +50,7 @@ public class Database {
                         accounts.add((Account) o);
                     }
                 }
+                System.out.println("DEBUG: Loaded accounts: " + accounts.size());
                 return true;
             } else {
                 return false;
@@ -63,6 +64,7 @@ public class Database {
     public boolean saveAccounts() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/res/accounts.csv"))) {
             oos.writeObject(accounts);
+            System.out.println("DEBUG: Loaded accounts: " + accounts.size());
             return true;
         } catch (IOException e) {
             return false;

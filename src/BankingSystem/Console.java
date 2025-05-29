@@ -39,7 +39,7 @@ public class Console {
 
     public void start(){
         Database database = new Database();
-        LoginManager loginManager = new LoginManager(database);
+        LoginManager loginManager = new LoginManager();
 
         while (!loginManager.startLogin(database)) {
             System.out.println("Try again.");
