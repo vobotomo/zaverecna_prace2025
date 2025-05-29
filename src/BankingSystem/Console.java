@@ -14,7 +14,7 @@ public class Console {
     public void initialization(LoginManager loginManager, Database database){
         commands = new HashMap<>();
         commands.put("exit", new Exit(database));
-        commands.put("logout", new Logout(loginManager));
+        commands.put("logout", new Logout(loginManager, database));
         commands.put("transfer", new Transfer(loginManager, database, sc));
         commands.put("withdraw", new Withdraw(sc, loginManager));
         commands.put("deposit", new Deposit(loginManager, sc));
@@ -40,6 +40,11 @@ public class Console {
     public void start(){
         Database database = new Database();
         LoginManager loginManager = new LoginManager(database);
+
+        while (!loginManager.startLogin(database)) {
+            System.out.println("Try again.");
+        }
+
         initialization(loginManager, database);
 
         do{

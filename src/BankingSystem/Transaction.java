@@ -26,6 +26,17 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
+    @Override
+public String toString() {
+    return "Transaction ID: " + id +
+           " | Date: " + date +
+           " | Type: " + transactionType +
+           " | Amount: " + amount +
+           " | From: " + (fromAccount != null ? fromAccount.getUsername() : "N/A") +
+           " | To: " + (toAccount != null ? toAccount.getUsername() : "N/A") +
+           " | Description: " + (description != null ? description : "None");
+}
+
     public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
     }
