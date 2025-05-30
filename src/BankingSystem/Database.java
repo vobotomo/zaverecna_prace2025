@@ -127,14 +127,19 @@ public class Database {
     }
 
 
-    public boolean removeAccount(Account account) {
+    public String removeAccount(Account account, LoginManager loginManager) {
         for (Account a : accounts) {
             if (a.equals(account)) {
                 accounts.remove(a);
-                return true;
+                saveAccounts();
+                System.out.println("Account has been deleted.");
+                while (!loginManager.startLogin(this)) {
+                    System.out.println("Try again.");
+                }
+                return "";
             }
         }
-        return false;
+        return "Account has not been deleted.";
     }
 
     public TreeSet<Account> getAccounts() {

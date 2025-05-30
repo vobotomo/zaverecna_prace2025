@@ -28,7 +28,8 @@ public class Account implements Comparable<Account> {
 
     // method for applying interests on differnt types of accounts
     public void applyInterest() {
-
+        double interest = getBalance() * getInterestRate();
+        setBalance(getBalance() + interest);
     }
 
 
@@ -97,7 +98,7 @@ public class Account implements Comparable<Account> {
         this.transactions.add(transaction);
         recipient.transactions.add(transaction);
 
-        return "Transfer of " + amount + " to " + recipient.getUsername() + " was successful. New balance: " + this.balance + "Description: " + description;
+        return "Transfer of " + amount + " to " + recipient.getUsername() + " was successful. New balance: " + this.balance + " Description: " + description;
     }
 
     @Override

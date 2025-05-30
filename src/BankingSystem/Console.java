@@ -22,7 +22,7 @@ public class Console {
         commands.put("database", new ShowDatabase(database, loginManager, sc));
         commands.put("info", new ShowInformation(loginManager));
         commands.put("help", new Help(database));
-        commands.put("delete", new Delete());
+        commands.put("delete", new Delete(database, loginManager));
     }
 
 
@@ -50,6 +50,11 @@ public class Console {
         initialization(loginManager, database);
 
         do{
+            if(loginManager.getLoggedInAccount() == null){
+                while (!loginManager.startLogin(database)) {
+                    System.out.println("Try again.");
+                }
+            }
             executeCommand();
         }while(!exit);
     }
