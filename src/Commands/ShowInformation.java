@@ -7,7 +7,7 @@ public class ShowInformation implements Command {
 
     private LoginManager loginManager;
 
-    
+
     public ShowInformation(LoginManager loginManager) {
         this.loginManager = loginManager;
     }

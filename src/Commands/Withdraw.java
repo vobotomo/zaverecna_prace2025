@@ -1,6 +1,7 @@
 package Commands;
 
 import java.util.Scanner;
+
 import BankingSystem.LoginManager;
 
 public class Withdraw implements Command {
@@ -12,7 +13,6 @@ public class Withdraw implements Command {
         this.scanner = scanner;
         this.loginManager = loginManager;
     }
-
 
 
     @Override
@@ -40,7 +40,7 @@ public class Withdraw implements Command {
         }
     }
 
-    
+
     @Override
     public boolean exit() {
         return false;

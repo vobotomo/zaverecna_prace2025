@@ -13,7 +13,7 @@ public class SavingsAccount extends Account {
     }
 
     @Override
-    public void applyInterest() {      
+    public void applyInterest() {
         double interest = getBalance() * getInterestRate();
         setBalance(getBalance() + interest);
     }

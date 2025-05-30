@@ -11,7 +11,7 @@ public class Console {
     private boolean exit = false;
     private HashMap<String, Command> commands;
 
-    public void initialization(LoginManager loginManager, Database database){
+    public void initialization(LoginManager loginManager, Database database) {
         commands = new HashMap<>();
         commands.put("exit", new Exit(database));
         commands.put("logout", new Logout(loginManager, database));
@@ -26,20 +26,19 @@ public class Console {
     }
 
 
-    public void executeCommand(){
+    public void executeCommand() {
         System.out.println(">>");
         String command = sc.nextLine();
-        if(commands.containsKey(command)){
+        if (commands.containsKey(command)) {
             System.out.println(commands.get(command).execute());
             exit = commands.get(command).exit();
-        }else{
+        } else {
             System.out.println("Invalid command");
         }
     }
 
 
-
-    public void start(){
+    public void start() {
         Database database = new Database();
         LoginManager loginManager = new LoginManager();
 
@@ -49,14 +48,14 @@ public class Console {
 
         initialization(loginManager, database);
 
-        do{
-            if(loginManager.getLoggedInAccount() == null){
+        do {
+            if (loginManager.getLoggedInAccount() == null) {
                 while (!loginManager.startLogin(database)) {
                     System.out.println("Try again.");
                 }
             }
             executeCommand();
-        }while(!exit);
+        } while (!exit);
     }
 
 }

@@ -13,7 +13,7 @@ public class Transfer implements Command {
     private Scanner scanner;
     private Database database;
 
-    public Transfer(LoginManager loginManager, Database database , Scanner scanner) {
+    public Transfer(LoginManager loginManager, Database database, Scanner scanner) {
         this.loginManager = loginManager;
         this.scanner = scanner;
         this.database = database;

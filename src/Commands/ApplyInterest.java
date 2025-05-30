@@ -10,7 +10,7 @@ public class ApplyInterest implements Command {
     private LoginManager loginManager;
     private Database database;
 
-    public ApplyInterest(LoginManager loginManager, Database database){
+    public ApplyInterest(LoginManager loginManager, Database database) {
         this.loginManager = loginManager;
         this.database = database;
     }
@@ -36,7 +36,7 @@ public class ApplyInterest implements Command {
         return "Interest successfully applied to " + count + " accounts.";
     }
 
-    
+
     @Override
     public boolean exit() {
         return false;

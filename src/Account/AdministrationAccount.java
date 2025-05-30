@@ -30,6 +30,6 @@ public class AdministrationAccount extends Account {
     }
 
     @Override
-    public void applyInterest(){
+    public void applyInterest() {
     }
 }
