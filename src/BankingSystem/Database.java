@@ -2,6 +2,9 @@ package BankingSystem;
 
 import Account.Account;
 import Account.AccountType;
+import Account.CheckingAccount;
+import Account.SavingsAccount;
+import Account.AdministrationAccount;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,6 +18,7 @@ public class Database {
 
     public Database() {
         accounts = new TreeSet<>();
+        transactions = new ArrayList<>();
         loadAccounts();
         addTransactions();
     }
@@ -41,32 +45,68 @@ public class Database {
 
     public boolean loadAccounts() {
         accounts.clear();
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/res/accounts.csv"))) {
-            Object obj = ois.readObject();
-            if (obj instanceof TreeSet<?>) {
-                TreeSet<?> loaded = (TreeSet<?>) obj;
-                for (Object o : loaded) {
-                    if (o instanceof Account) {
-                        accounts.add((Account) o);
-                    }
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/res/accounts.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(";");
+                if (parts.length != 10) continue;
+
+                int id = Integer.parseInt(parts[0]);
+                String ownerName = parts[1];
+                String ownerSurname = parts[2];
+                String username = parts[3];
+                String email = parts[4];
+                String phone = parts[5];
+                String password = parts[6];
+                double balance = Double.parseDouble(parts[7]);
+                AccountType type = AccountType.valueOf(parts[8]);
+                double interestRate = Double.parseDouble(parts[9]);
+
+                Account acc;
+                switch (type) {
+                    case CHECKING:
+                        acc = new CheckingAccount(ownerName, ownerSurname, username, email, phone, password, balance, type, interestRate);
+                        break;
+                    case SAVINGS:
+                        acc = new SavingsAccount(ownerName, ownerSurname, username, email, phone, password, balance, type, interestRate);
+                        break;
+                    case ADMINISTRATION:
+                        acc = new AdministrationAccount(ownerName, ownerSurname, username, email, phone, password, balance, type, interestRate, this);
+                        break;
+                    default:
+                        acc = new Account(ownerName, ownerSurname, username, email, phone, password, balance, type, interestRate);
                 }
-                System.out.println("DEBUG: Loaded accounts: " + accounts.size());
-                return true;
-            } else {
-                return false;
+
+                acc.setId(id);
+                accounts.add(acc);
             }
-        } catch (IOException | ClassNotFoundException e) {
+            return true;
+        } catch (IOException | IllegalArgumentException e) {
+            e.printStackTrace();
             return false;
         }
     }
 
 
     public boolean saveAccounts() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/res/accounts.csv"))) {
-            oos.writeObject(accounts);
-            System.out.println("DEBUG: Loaded accounts: " + accounts.size());
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/res/accounts.txt"))) {
+            for (Account acc : accounts) {
+                writer.println(String.join(";",
+                        String.valueOf(acc.getId()),
+                        acc.getOwnerName(),
+                        acc.getOwnerSurname(),
+                        acc.getUsername(),
+                        acc.getEmail(),
+                        acc.getPhoneNumber(),
+                        acc.getPassword(),
+                        String.valueOf(acc.getBalance()),
+                        acc.getAccountType().name(),
+                        String.valueOf(acc.getInterestRate())
+                ));
+            }
             return true;
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }

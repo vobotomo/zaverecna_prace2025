@@ -14,10 +14,6 @@ public class LoginManager {
     }
 
     public boolean login(Database database, String username, String password) {
-        System.out.println("DEBUG:");
-        for (Account a : database.getAccounts()) {
-            System.out.println("Username: " + a.getUsername() + ", Password: " + a.getPassword());
-        }
         Account account = database.accByUsername(username);
         if (account != null && account.getPassword().equals(password)) {
             setLoggedInAccount(account);

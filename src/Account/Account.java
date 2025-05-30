@@ -101,28 +101,29 @@ public class Account implements Comparable<Account> {
     }
 
     @Override
-public String toString() {
-    String result = "\n--- Account Information ---" +
-                    "\nID: " + id +
-                    "\nName: " + ownerName + " " + ownerSurname +
-                    "\nUsername: " + username +
-                    "\nEmail: " + email +
-                    "\nPhone: " + phoneNumber +
-                    "\nBalance: " + balance +
-                    "\nAccount Type: " + accountType +
-                    "\nInterest Rate: " + interestRate +
-                    "\nTransactions: " + transactions.size() + " total";
+    public String toString() {
+        String result = "\n--- Account Information ---" +
+                "\nID: " + id +
+                "\nName: " + ownerName + " " + ownerSurname +
+                "\nUsername: " + username +
+                "\nEmail: " + email +
+                "\nPhone: " + phoneNumber +
+                "\nBalance: " + balance +
+                "\nAccount Type: " + accountType +
+                "\nInterest Rate: " + interestRate +
+                "\nTransactions: " + transactions.size() + " total";
 
-    if (!transactions.isEmpty()) {
-        result += "\n--- Transaction History ---";
-        for (Transaction t : transactions) {
-            result += "\n" + t.toString();
+        if (!transactions.isEmpty()) {
+            result += "\n--- Transaction History ---";
+            for (Transaction t : transactions) {
+                result += "\n" + t.toString();
+            }
         }
+
+        result += "\n---------------------------";
+        return result;
     }
 
-    result += "\n---------------------------";
-    return result;
-}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

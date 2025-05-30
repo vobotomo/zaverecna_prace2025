@@ -1,0 +1,1 @@
+0;Tomas;Voborny;tomasvoborny;tomas@gmail.com;123456789;password1;0.0;CHECKING;0.0

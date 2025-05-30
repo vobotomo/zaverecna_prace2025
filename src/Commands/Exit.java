@@ -12,12 +12,12 @@ public class Exit implements Command {
 
     @Override
     public String execute() {
+        database.saveAccounts();
         return "The program has been closed.";
     }
 
     @Override
     public boolean exit() {
-        database.saveAccounts();
         return true;
     }
 }
