@@ -21,6 +21,8 @@ public class Console {
         commands.put("interest", new ApplyInterest(loginManager, database));
         commands.put("database", new ShowDatabase(database, loginManager, sc));
         commands.put("info", new ShowInformation(loginManager));
+        commands.put("help", new Help(database));
+        commands.put("delete", new Delete());
     }
 
 

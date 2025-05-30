@@ -43,6 +43,21 @@ public class Database {
         return null;
     }
 
+
+    public String loadCommands() {
+        String result = "";
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/res/commands.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result += line + "\n";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error: commands file could not be loaded.";
+        }
+        return result;
+    }
+
     public boolean loadAccounts() {
         accounts.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader("src/res/accounts.txt"))) {

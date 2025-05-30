@@ -1,0 +1,12 @@
+List of Commands:
+
+1. help - Displays the list of available commands.
+2. exit - Exits the program.
+3. logout - Logs out the currently logged-in user.
+4. transfer - Transfers money to another user.
+5. withdraw - Withdraws money from the account.
+6. deposit - Deposits money into the account.
+7. interest - Applies interest to accounts (only for admin accounts).
+8. database - Displays database information (only for admin accounts).
+9. info - Displays information about the currently logged-in account.
+10. delete - Deletes the logged-in account (confirmation required).
