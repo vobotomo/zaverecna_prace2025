@@ -1,2 +1,2 @@
-1;Karel;Novak;karelnovak;karel@gmail.com;123456788;password1;1001.0;CHECKING;0.001
-0;Tomas;Voborny;tomasvoborny;tomas@gmail.com;123456789;password1;1.32333282E8;ADMINISTRATION;0.001
+1;Karel;Novak;karelnovak;karel@gmail.com;123456788;password1;964968.0;CHECKING;0.001
+0;Tomas;Voborny;tomasvoborny;tomas@gmail.com;123456789;password1;1.28156247E8;ADMINISTRATION;0.001

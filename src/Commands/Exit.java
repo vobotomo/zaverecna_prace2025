@@ -13,6 +13,7 @@ public class Exit implements Command {
     @Override
     public String execute() {
         database.saveAccounts();
+        database.saveTransactions();
         return "The program has been closed.";
     }
 

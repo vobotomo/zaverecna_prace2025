@@ -18,6 +18,7 @@ public class Logout implements Command {
     @Override
     public String execute() {
         database.saveAccounts();
+        database.saveTransactions();
         System.out.println(loginManager.logout());
         loginManager.startLogin(database);
         return "";

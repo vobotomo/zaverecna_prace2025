@@ -32,6 +32,7 @@ public class LoginManager {
         setLoggedInAccount(account);
         database.getAccounts().add(account);
         database.saveAccounts();
+        database.saveTransactions();
     }
 
     public Account getLoggedInAccount() {

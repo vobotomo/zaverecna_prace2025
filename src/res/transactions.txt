@@ -1,0 +1,2 @@
+1;2025-05-30T20:30:22.451442600;321321.0;dva kebaby;tomasvoborny;karelnovak;TRANSFER
+0;2025-05-30T20:29:43.189701800;3213131.0;kebab;tomasvoborny;;WITHDRAWAL
