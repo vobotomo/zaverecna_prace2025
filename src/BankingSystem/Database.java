@@ -200,6 +200,7 @@ public class Database {
         for (Account a : accounts) {
             if (a.equals(account)) {
                 accounts.remove(a);
+                loginManager.setLoggedInAccount(null);
                 saveAccounts();
                 saveTransactions();
                 System.out.println("Account has been deleted.");
