@@ -76,6 +76,7 @@ public class Database {
 
     /**
      * Loads accounts from a file.
+     * ChatGPT
      *
      * @return true if successful, false otherwise
      */
@@ -187,6 +188,7 @@ public class Database {
 
     /**
      * Loads transactions from a file.
+     * ChatGPT
      *
      * @return true if successful, false otherwise
      */

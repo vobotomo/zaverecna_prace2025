@@ -15,6 +15,8 @@ import java.io.*;
 /**
  * Unit tests for the LoginManager class.
  * Tests user registration, login, and input validation during login process.
+ *
+ * ChatGPT helped
  */
 public class LoginManagerTest {
 
