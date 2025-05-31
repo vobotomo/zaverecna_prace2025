@@ -4,7 +4,13 @@ import Account.Account;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a transaction between two accounts.
+ * A transaction has a date, amount, description, sender and receiver accounts, type, and a unique ID.
+ */
 public class Transaction {
+
+    // Counter to generate unique transaction IDs
     private static int idCounter = 0;
 
     //Used LocalDateTime instead of LocalDate, beacuse it measures not only years, months and days
@@ -16,6 +22,17 @@ public class Transaction {
     private Account toAccount;
     private TransactionType transactionType;
 
+    /**
+     * Creates a new Transaction with the given details.
+     * The transaction ID is automatically generated.
+     *
+     * @param date            the date and time of the transaction
+     * @param amount          the amount of money in the transaction
+     * @param description     a short text about the transaction (optional)
+     * @param fromAccount     the account sending the money (can be null)
+     * @param toAccount       the account receiving the money (can be null)
+     * @param transactionType the type of the transaction (e.g. DEPOSIT, TRANSFER)
+     */
     public Transaction(LocalDateTime date, double amount, String description, Account fromAccount, Account toAccount, TransactionType transactionType) {
         this.date = date;
         this.amount = amount;
@@ -26,6 +43,11 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
+    /**
+     * Returns a string with information about the transaction.
+     *
+     * @return formatted string with ID, date, type, amount, sender, receiver, and description
+     */
     @Override
     public String toString() {
         return "Transaction ID: " + id +
@@ -36,6 +58,7 @@ public class Transaction {
                 " | To: " + (toAccount != null ? toAccount.getUsername() : "N/A") +
                 " | Description: " + (description != null ? description : "None");
     }
+
 
     public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;

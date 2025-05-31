@@ -1,23 +1,24 @@
 package BankingSystem;
 
-import Account.Account;
-import Account.AccountType;
-import Account.CheckingAccount;
-import Account.SavingsAccount;
-import Account.AdministrationAccount;
-
+import Account.*;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+/**
+ * Database class stores all accounts and transactions in the banking system.
+ * It can load and save data from/to text files and gives useful information about accounts.
+ */
 public class Database {
 
     private TreeSet<Account> accounts;
     private ArrayList<Transaction> transactions;
 
-
+    /**
+     * Creates a new Database object and loads accounts and transactions from files.
+     */
     public Database() {
         accounts = new TreeSet<>();
         transactions = new ArrayList<>();
@@ -26,17 +27,25 @@ public class Database {
         addTransactions();
     }
 
+    /**
+     * Adds transactions from each account to the main list of transactions.
+     */
     public void addTransactions() {
         for (Account acc : accounts) {
             transactions.addAll(acc.getTransactions());
         }
     }
 
-
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
 
+    /**
+     * Finds an account by username.
+     *
+     * @param username the username to search
+     * @return account with this username or null if not found
+     */
     public Account accByUsername(String username) {
         for (Account acc : accounts) {
             if (acc.getUsername().equals(username)) {
@@ -46,7 +55,11 @@ public class Database {
         return null;
     }
 
-
+    /**
+     * Loads text with command descriptions from a file.
+     *
+     * @return all lines from commands.txt or an error message
+     */
     public String loadCommands() {
         String result = "";
         try (BufferedReader reader = new BufferedReader(new FileReader("src/res/commands.txt"))) {
@@ -61,6 +74,11 @@ public class Database {
         return result;
     }
 
+    /**
+     * Loads accounts from a file.
+     *
+     * @return true if successful, false otherwise
+     */
     public boolean loadAccounts() {
         accounts.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader("src/res/accounts.txt"))) {
@@ -105,7 +123,11 @@ public class Database {
         }
     }
 
-
+    /**
+     * Saves all accounts to a file.
+     *
+     * @return true if successful, false otherwise
+     */
     public boolean saveAccounts() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/res/accounts.txt"))) {
             for (Account acc : accounts) {
@@ -130,10 +152,13 @@ public class Database {
         }
     }
 
+    /**
+     * Saves all unique transactions to a file.
+     *
+     * @return true if successful, false otherwise
+     */
     public boolean saveTransactions() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/res/transactions.txt"))) {
-
-            //when user A transfers money to user B, this transaction is saved in to lists (A.getTransactions() and B.getTransactions()), this list solves the problem
             ArrayList<Integer> writtenTransaction = new ArrayList<>();
 
             for (Account account : accounts) {
@@ -160,6 +185,11 @@ public class Database {
         }
     }
 
+    /**
+     * Loads transactions from a file.
+     *
+     * @return true if successful, false otherwise
+     */
     public boolean loadTransactions() {
         transactions.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader("src/res/transactions.txt"))) {
@@ -196,6 +226,14 @@ public class Database {
         }
     }
 
+    /**
+     * Removes an account from the database.
+     * Also logs out the user and starts a new login.
+     *
+     * @param account the account to delete
+     * @param loginManager login system
+     * @return result message
+     */
     public String removeAccount(Account account, LoginManager loginManager) {
         for (Account a : accounts) {
             if (a.equals(account)) {
@@ -227,6 +265,9 @@ public class Database {
         return acc;
     }
 
+    /**
+     * @return account with the least money
+     */
     public Account poorestAcc() {
         Account acc = accounts.first();
         for (Account a : accounts) {
@@ -237,6 +278,9 @@ public class Database {
         return acc;
     }
 
+    /**
+     * @return average balance of all accounts
+     */
     public double averageBalance() {
         if (accounts.isEmpty()) {
             return 0;
@@ -248,6 +292,9 @@ public class Database {
         return total / accounts.size();
     }
 
+    /**
+     * @return list of accounts with balance 0
+     */
     public ArrayList<Account> accountsWithZeroBalance() {
         ArrayList<Account> temp = new ArrayList<>();
         for (Account acc : accounts) {
@@ -258,6 +305,12 @@ public class Database {
         return temp;
     }
 
+    /**
+     * Counts how many accounts exist of a certain type.
+     *
+     * @param type the account type to search for
+     * @return number of accounts with this type
+     */
     public int countAccountsByType(AccountType type) {
         int count = 0;
         for (Account acc : accounts) {

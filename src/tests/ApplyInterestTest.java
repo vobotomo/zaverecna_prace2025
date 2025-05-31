@@ -9,6 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for ApplyInterest command.
+ * Checks if interest is applied correctly only by administrators.
+ */
 public class ApplyInterestTest {
 
     static class TestLoginManager extends LoginManager {
@@ -42,8 +46,8 @@ public class ApplyInterestTest {
         String result = applyInterest.execute();
 
         assertEquals("Interest successfully applied to "+ database.getAccounts().size() +" accounts.", result);
-        assertEquals(1050, acc1.getBalance(), 0.001);
-        assertEquals(2200, acc2.getBalance(), 0.001);
+        assertEquals(1050, acc1.getBalance(), 0.001);  // 1000 + 5% = 1050
+        assertEquals(2200, acc2.getBalance(), 0.001);  // 2000 + 10% = 2200
     }
 
     @Test

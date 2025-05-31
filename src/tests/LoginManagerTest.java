@@ -12,6 +12,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.*;
 
+/**
+ * Unit tests for the LoginManager class.
+ * Tests user registration, login, and input validation during login process.
+ */
 public class LoginManagerTest {
 
     private final InputStream originalIn = System.in;

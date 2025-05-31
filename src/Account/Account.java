@@ -10,6 +10,11 @@ import java.util.Objects;
 import static BankingSystem.TransactionType.TRANSFER;
 import static BankingSystem.TransactionType.WITHDRAWAL;
 
+/**
+ * Represents a generic bank account that stores personal details, balance,
+ * account type, and transaction history. Provides methods for transferring
+ * and withdrawing funds, as well as applying interest.
+ */
 public class Account implements Comparable<Account> {
     private static int idCounter = 0;
 
@@ -25,14 +30,25 @@ public class Account implements Comparable<Account> {
     private ArrayList<Transaction> transactions;
     private double interestRate;
 
-
-    // method for applying interests on differnt types of accounts
+    /**
+     * Applies interest to the account balance based on the interest rate of  each account type.
+     */
     public void applyInterest() {
         double interest = getBalance() * getInterestRate();
         setBalance(getBalance() + interest);
     }
 
-
+    /**
+     * Constructs a new account with basic information and initializes the transaction list.
+     *
+     * @param ownerName      the account owner's first name
+     * @param ownerSurname   the account owner's surname
+     * @param username       the account's login username
+     * @param email          the owner's email
+     * @param phoneNumber    the owner's phone number
+     * @param password       the account password
+     * @param accountType    the type of the account
+     */
     public Account(String ownerName, String ownerSurname, String username, String email, String phoneNumber, String password, AccountType accountType) {
         id = idCounter++;
         setOwnerName(ownerName);
@@ -45,6 +61,19 @@ public class Account implements Comparable<Account> {
         transactions = new ArrayList<>();
     }
 
+    /**
+     * Constructs a new account with full details including balance and interest rate.
+     *
+     * @param ownerName      the account owner's first name
+     * @param ownerSurname   the account owner's surname
+     * @param username       the account's login username
+     * @param email          the owner's email
+     * @param phoneNumber    the owner's phone number
+     * @param password       the account password
+     * @param balance        the initial account balance
+     * @param accountType    the type of the account
+     * @param interestRate   the interest rate of the account
+     */
     public Account(String ownerName, String ownerSurname, String username, String email, String phoneNumber, String password, double balance, AccountType accountType, double interestRate) {
         id = idCounter++;
         setOwnerName(ownerName);
@@ -59,7 +88,14 @@ public class Account implements Comparable<Account> {
         transactions = new ArrayList<>();
     }
 
-
+    /**
+     * Withdraws a specific amount of money from the account if sufficient balance is available.
+     *
+     * @param amount         the amount to withdraw
+     * @param description    a description of the withdrawal
+     * @param loginManager   the login manager to identify the logged-in account
+     * @return a message indicating success or failure
+     */
     public String withdraw(double amount, String description, LoginManager loginManager) {
         if (amount <= 0) {
             return "Withdrawal failed: amount must be greater than 0.";
@@ -77,7 +113,15 @@ public class Account implements Comparable<Account> {
         return "Withdrawal of " + amount + " was successful. New balance: " + this.balance;
     }
 
-
+    /**
+     * Transfers a specific amount of money to another account.
+     *
+     * @param loginManager   the login manager to identify the logged-in account
+     * @param recipient      the recipient account
+     * @param amount         the amount to transfer
+     * @param description    a description of the transaction
+     * @return a message indicating success or failure
+     */
     public String transfer(LoginManager loginManager, Account recipient, double amount, String description) {
         if (recipient == null) {
             return "Transfer failed: recipient account not found.";
@@ -150,6 +194,12 @@ public class Account implements Comparable<Account> {
         return email;
     }
 
+    /**
+     * Sets the email after validating its format.
+     *
+     * @param email the email to set
+     * @throws IllegalArgumentException if email format is invalid
+     */
     public void setEmail(String email) {
         if (email == null || !email.matches("^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$")) {
             throw new IllegalArgumentException("Invalid email format. Example: test@example.com");
@@ -161,6 +211,12 @@ public class Account implements Comparable<Account> {
         return phoneNumber;
     }
 
+    /**
+     * Sets the phone number after validating its format.
+     *
+     * @param phoneNumber the phone number to set
+     * @throws IllegalArgumentException if phone number is invalid
+     */
     public void setPhoneNumber(String phoneNumber) {
         if (phoneNumber == null || !phoneNumber.matches("^(\\+420)?\\d{9}$")) {
             throw new IllegalArgumentException("Invalid phone number. Must be 9 digits, optionally prefixed with +420.");
@@ -172,6 +228,12 @@ public class Account implements Comparable<Account> {
         return password;
     }
 
+    /**
+     * Sets the password after validating its format.
+     *
+     * @param password the password to set
+     * @throws IllegalArgumentException if password is invalid
+     */
     public void setPassword(String password) {
         if (password == null || !password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
             throw new IllegalArgumentException("Invalid password. Must be at least 8 characters long, contain letters and numbers.");
@@ -191,6 +253,12 @@ public class Account implements Comparable<Account> {
         return ownerSurname;
     }
 
+    /**
+     * Sets the owner's surname after validating its format.
+     *
+     * @param ownerSurname the surname to set
+     * @throws IllegalArgumentException if surname is invalid
+     */
     public void setOwnerSurname(String ownerSurname) {
         if (ownerSurname == null || !ownerSurname.matches("^[A-Z][a-z]+$")) {
             throw new IllegalArgumentException("Invalid surname format. Must start with a capital letter and contain only lowercase letters.");
@@ -202,6 +270,12 @@ public class Account implements Comparable<Account> {
         return ownerName;
     }
 
+    /**
+     * Sets the owner's first name after validating its format.
+     *
+     * @param ownerName the name to set
+     * @throws IllegalArgumentException if name is invalid
+     */
     public void setOwnerName(String ownerName) {
         if (ownerName == null || !ownerName.matches("^[A-Z][a-z]+$")) {
             throw new IllegalArgumentException("Invalid owner name format. Must start with capital letter and contain only letters.");
@@ -241,6 +315,12 @@ public class Account implements Comparable<Account> {
         this.interestRate = interestRate;
     }
 
+    /**
+     * Compares this account to another account by owner's name.
+     *
+     * @param o the account to compare to
+     * @return comparison result
+     */
     @Override
     public int compareTo(Account o) {
         return this.ownerName.compareTo(o.ownerName);

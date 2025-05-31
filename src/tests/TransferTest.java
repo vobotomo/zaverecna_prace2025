@@ -13,6 +13,10 @@ import java.util.Scanner;
 import static Account.AccountType.CHECKING;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit tests for the Transfer command.
+ * Tests the process of transferring money between accounts.
+ */
 public class TransferTest {
 
     private Database database;

@@ -12,7 +12,10 @@ import java.util.Scanner;
 
 import static Account.AccountType.CHECKING;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/**
+ * Unit tests for the Withdraw command.
+ * Tests withdrawal scenarios including valid, invalid input, negative amount, and insufficient balance.
+ */
 public class WithdrawTest {
 
     private Database database;

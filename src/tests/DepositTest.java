@@ -13,6 +13,11 @@ import java.util.Scanner;
 import static Account.AccountType.CHECKING;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
+/**
+ * Unit tests for the  Deposit command.
+ * Tests deposit functionality for valid and invalid inputs.
+ */
 public class DepositTest {
 
     private Database database;

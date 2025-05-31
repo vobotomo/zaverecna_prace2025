@@ -9,18 +9,35 @@ import Account.AccountType;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This command allows administrators to view and analyze the database.
+ * It provides options to see accounts, transactions, and statistics.
+ */
 public class ShowDatabase implements Command {
 
     private Scanner scanner;
     private LoginManager loginManager;
     private Database database;
 
+    /**
+     * Creates a new ShowDatabase command.
+     *
+     * @param database     the database with accounts and transactions
+     * @param loginManager the login manager to check if user is admin
+     * @param scanner      the scanner to read user input
+     */
     public ShowDatabase(Database database, LoginManager loginManager, Scanner scanner) {
         this.database = database;
         this.loginManager = loginManager;
         this.scanner = scanner;
     }
 
+    /**
+     * Executes the command to show the admin database menu.
+     * Admin can choose different options to see accounts, transactions, or statistics.
+     *
+     * @return a message when the admin exits the database view
+     */
     @Override
     public String execute() {
         Account admin = loginManager.getLoggedInAccount();
@@ -130,6 +147,11 @@ public class ShowDatabase implements Command {
         return "Exited admin database view.";
     }
 
+    /**
+     * This command does not cause the program to exit.
+     *
+     * @return false always
+     */
     @Override
     public boolean exit() {
         return false;
